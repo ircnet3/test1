@@ -1,0 +1,51 @@
+package main
+
+import (
+	"html/template"
+	"net/http"
+)
+
+type Student struct {
+	FullName    string
+	BirthDate   string
+	SNILS       string
+	OrderNumber string
+	OrderDate   string
+	Course      int
+	Faculty     string
+}
+
+type PageData struct {
+	SearchQuery string
+	ShowResults bool
+	Student     Student
+}
+
+func main() {
+	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fio := r.URL.Query().Get("fio")
+		data := PageData{
+			SearchQuery: fio,
+			ShowResults: fio != "",
+		}
+
+		if data.ShowResults {
+			// В реальном приложении здесь будет запрос к БД
+			data.Student = Student{
+				FullName:    fio,
+				BirthDate:   "15.05.1998",
+				SNILS:       "123-456-789 00",
+				OrderNumber: "1256-К",
+				OrderDate:   "12.09.2023",
+				Course:      3,
+				Faculty:     "Информационные технологии",
+			}
+		}
+
+		tmpl.Execute(w, data)
+	})
+
+	http.ListenAndServe(":8080", nil)
+}

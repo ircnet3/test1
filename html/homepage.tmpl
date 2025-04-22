@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск по ФИО</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header, footer {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            background: #fff;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 8px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 15px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Поиск пользователя</h1>
+    </header>
+    <main>
+        <div class="search-form">
+            <input type="text" id="fio" placeholder="Введите ФИО" required>
+            <button onclick="search()">Найти</button>
+        </div>
+        <div id="result"></div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Поиск по ФИО</p>
+    </footer>
+
+    <script>
+        function search() {
+            const fio = document.getElementById('fio').value.trim();
+            const resultDiv = document.getElementById('result');
+            
+            if (fio === '') {
+                resultDiv.textContent = 'Введите ФИО!';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            resultDiv.textContent = `Найден пользователь: ${fio}`;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
+
+<!--
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>{{.Fio}}</title>
+    </head>
+    <body>
+        <header>
+          {{.Birthday}}
+            <h1><a href='/'> {{.Snils}} </a></h1>
+        </header>
+        <nav>
+            <a href="/">Домашняя страница {{.OrderDate}}</a>
+        </nav>
+        <main>
+            <h2>Последние заметки</h2>
+            <p>Здесь пока ничего нет!</p>
+        </main>
+    </body>
+</html>
+-->

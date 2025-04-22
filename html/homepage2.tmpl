@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск студента</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header, footer {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        input[type="text"] {
+            padding: 8px;
+            flex: 1;
+            min-width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 15px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+        .result-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .result-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 250px;
+            color: #555;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Поиск студента</h1>
+    </header>
+
+    <div class="search-container">
+        <div class="search-form">
+            <input type="text" id="fio" placeholder="Введите ФИО студента" required>
+            <button onclick="searchStudent()">Найти</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div class="result-item">
+            <span class="result-label">ФИО:</span>
+            <span id="result-fio"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Дата рождения:</span>
+            <span id="result-birthdate"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">СНИЛС:</span>
+            <span id="result-snils"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Номер приказа:</span>
+            <span id="result-order-number"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Дата приказа:</span>
+            <span id="result-order-date"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Курс:</span>
+            <span id="result-course"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Факультет:</span>
+            <span id="result-faculty"></span>
+        </div>
+        <div class="result-item">
+            <span class="result-label">Источник финансирования:</span>
+            <span id="result-payment"></span>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Система поиска студентов</p>
+    </footer>
+
+    <script>
+        function searchStudent() {
+            const fio = document.getElementById('fio').value.trim();
+            const resultDiv = document.getElementById('result');
+            
+            if (fio === '') {
+                alert('Пожалуйста, введите ФИО студента');
+                return;
+            }
+
+            // Здесь должен быть реальный запрос к серверу
+            // Для примера используем mock-данные
+            const mockData = {
+                fullName: fio,
+                birthDate: '{{.Birthday}}',
+                snils: '{{.Snils}}',
+                orderNumber: '{{.OrderDate}}',
+                orderDate: '{{.OrderDate}}',
+                course: '{{.Course}}',
+                faculty: '{{.Specialty}}',
+                payment: '{{.Payment}}'
+            };
+
+            // Заполняем результаты
+            document.getElementById('result-fio').textContent = mockData.fullName;
+            document.getElementById('result-birthdate').textContent = mockData.birthDate;
+            document.getElementById('result-snils').textContent = mockData.snils;
+            document.getElementById('result-order-number').textContent = mockData.orderNumber;
+            document.getElementById('result-order-date').textContent = mockData.orderDate;
+            document.getElementById('result-course').textContent = mockData.course;
+            document.getElementById('result-faculty').textContent = mockData.faculty;
+            document.getElementById('result-payment').textContent = mockData.payment;
+
+            // Показываем блок с результатами
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
