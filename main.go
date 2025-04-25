@@ -11,19 +11,19 @@ import (
 )
 
 type student struct {
-	Fio           string
-	Age           int
-	Birthday      string
-	Payment       string
-	OrderNumber   string
-	OrderDate     string
-	Course        string
-	Snils         string
-	Status        string
-	Specialty     string
-	Academic_year string
-	Material      string
-	Count         uint
+	Fio           string `csv:"ФИО"`
+	Age           int    `csv:"ФИО"`
+	Birthday      string `csv:""`
+	Payment       string `csv:""`
+	OrderNumber   string `csv:""`
+	OrderDate     string `csv:""`
+	Course        string `csv:""`
+	Snils         string `csv:""`
+	Status        string `csv:""`
+	Specialty     string `csv:""`
+	Academic_year string `csv:""`
+	Material      string `csv:""`
+	Count         uint   `csv:""`
 }
 
 type Inventory struct {
@@ -40,6 +40,32 @@ var studentslist_by_ID map[string]student
 // Создается функция-обработчик "home", которая записывает байтовый слайс, содержащий
 // текст "Привет из Snippetbox" как тело ответа
 
+func GetCSV(struct1 map[string]student, fileName string) {
+	// Открываем файл
+	file, err := os.Open(fileName)
+	// Если произошла ошибка при открытии, выводим её
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	// Закрываем файл в конце работы
+	defer file.Close()
+
+	// Создаем новый CSV читатель, используя файл
+	reader := csv.NewReader(file)
+
+	// Читаем все данные из CSV файла
+	records, err := reader.Read()
+	// Проверяем на наличие ошибок
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	println(records)
+
+}
+
 func home1(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Привет из Snippetbox"))
 }
@@ -55,11 +81,13 @@ func createSnippet(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
 	studentslist = make(map[string]student)
 	var cols map[string]int = make(map[string]int)
 
 	in := "D:\\Списки для справки.csv"
-
+	GetCSV(studentslist, in)
+	println("----------------")
 	file, err1 := os.Open(in)
 
 	if err1 != nil {
